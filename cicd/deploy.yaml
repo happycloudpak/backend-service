@@ -29,11 +29,11 @@ spec:
         - name: EUREKA_HOST3
           value: "{{ SERVICE_NAME }}-2.{{ SERVICE_NAME }}"
         - name: EUREKA_PORT1
-          value: {{ SERVICE_TARGET_PORT_ENV }}
+          value: "{{ EUREKA_PORT1 }}"
         - name: EUREKA_PORT2
-          value: {{ SERVICE_TARGET_PORT_ENV }}   
+          value: "{{ EUREKA_PORT2 }}"  
         - name: EUREKA_PORT3
-          value: {{ SERVICE_TARGET_PORT_ENV }}
+          value: "{{ EUREKA_PORT3 }}"
         ports:
         - name: port1
           containerPort: 18180
