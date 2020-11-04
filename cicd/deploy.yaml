@@ -23,7 +23,7 @@ spec:
         - name: SERVER_PORT
           value: {{ SERVICE_TARGET_PORT_ENV }}   
         - name: EUREKA_SERVERS
-          value: "{{ EUREKA_SERVERS }}"
+          value: {{ EUREKA_SERVERS }}
         ports:
         - name: port1
           containerPort: 18180
