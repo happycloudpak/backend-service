@@ -21,7 +21,9 @@ spec:
         imagePullPolicy: Always
         env:
         - name: SERVER_PORT
-          value: {{ SERVICE_TARGET_PORT_ENV }}          
+          value: {{ SERVICE_TARGET_PORT_ENV }}   
+        - name: EUREKA_HOST1
+          value: http://eureka-server.169.56.86.251.nip.io
         ports:
         - name: port1
           containerPort: 18180
