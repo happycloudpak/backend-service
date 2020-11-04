@@ -6,18 +6,8 @@ server:
 call:
   divisor: ${DIVISOR:0}
 eureka:
-  server1: 
-    host: ${EUREKA_HOST1:eureka1.svcmesh.com}
-    port: ${EUREKA_PORT1:18761}
-  server2: 
-    host: ${EUREKA_HOST2:eureka2.svcmesh.com}
-    port: ${EUREKA_PORT2:18762}
-  server3: 
-    host: ${EUREKA_HOST3:eureka3.svcmesh.com}
-    port: ${EUREKA_PORT3:18763}  
-        
   client: 
     register-with-eureka: true 
     fetch-registry: true 
     service-url:
-      defaultZone: http://${eureka.server1.host}:${eureka.server1.port}/eureka/, http://${eureka.server2.host}:${eureka.server2.port}/eureka/, http://${eureka.server3.host}:${eureka.server3.port}/eureka/
+      defaultZone: ${EUREKA_SERVERS:http://localhost:18761, http://localhost:18762, http://localhost:18763}
