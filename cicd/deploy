@@ -52,7 +52,7 @@ fi
 # configmap revise
 echo "STEP5. Create ConfigMap "
 cm="${image_repository}-cm-common"
-kubectl get configmap ${cm}
+chk=`kubectl get configmap ${cm}`
 if [ $? -eq 0 ]; then
   kubectl delete configmap ${cm}
 fi
@@ -62,7 +62,7 @@ if [ $? -eq 1 ]; then
   exit 2
 fi
 cm="${image_repository}-cm-${profile}"
-kubectl get configmap ${cm}
+chk=`kubectl get configmap ${cm}`
 if [ $? -eq 0 ]; then
   kubectl delete configmap ${cm}
 fi
@@ -75,11 +75,11 @@ fi
 # secret revise
 echo "STEP6. Create Secret "
 secret="${image_repository}-secret"
-kubectl get secret ${secret}
+chk=`kubectl get secret ${secret}`
 if [ $? -eq 0 ]; then
   kubectl delete secret ${secret}
 fi
-kubectl create secret generic ${secret} --from-env-file=${basedir}/cicd/src/main/resources/config/application-secret.properties
+kubectl create secret generic ${secret} --from-env-file=${basedir}/src/main/resources/config/application-secret.properties
 if [ $? -eq 1 ]; then
   echo "FAIL to create secret ${secret}!"
   exit 2
