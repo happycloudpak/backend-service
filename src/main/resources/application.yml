@@ -2,5 +2,5 @@ spring:
   application: 
     name: backend-service
   profiles: 
-    active: prod
+    active: dev
     include: common
