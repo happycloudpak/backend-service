@@ -15,7 +15,7 @@ fi
 
 context=$1
 basedir=$2
-if [ $@ -eq 3 ]; then
+if [ $# -eq 3 ]; then
 	profile=$3
 else
 	profile=`cat ${basedir}/src/main/resources/application.yml | grep "active: " | cut -d ":" -f2 | tr -d " "`
