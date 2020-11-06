@@ -4,6 +4,8 @@
 filepath=$1
 
 # set variables from config.properties
+sed "s@.@\.@g" - > ${filepath}.converted
+
 while read line
 do
   x=$(echo $line | grep "#")
@@ -13,4 +15,4 @@ do
         export ${line}   
     fi
   fi 
-done < ${filepath}
+done < ${filepath}.converted
