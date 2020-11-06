@@ -7,7 +7,7 @@ username=$1
 password=$2
 basedir=$3
 
-# set variables from config.properties
+# set variables from config.properties: converted from '.' to '_'
 ${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-common.properties
 ${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-${profile}.properties
 

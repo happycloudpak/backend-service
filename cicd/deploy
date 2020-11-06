@@ -19,7 +19,7 @@ if [ "${context}" == "." ]; then
 	context=`kubectl config current-context`
 fi
  
-# set variables from config.properties
+# set variables from config.properties: converted from '.' to '_'
 ${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-common.properties
 ${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-${profile}.properties
 

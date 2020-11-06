@@ -4,7 +4,6 @@
 filepath=$1
 
 # set variables from config.properties
-sed "s@.@\.@g" - > ${filepath}.converted
 
 while read line
 do
@@ -12,7 +11,9 @@ do
   if [ $? -eq 1 ]; then
     y=$(echo $line | grep "=")
     if [ $? -eq 0 ]; then
-        export ${line}   
+        key=$(echo $line | cut -d "=" -f1 | tr -d " " | sed "@\.@_@g")
+        val=$(echo $line | cut -d "=" -f2)
+        export ${key}=${val}   
     fi
   fi 
-done < ${filepath}.converted
+done < ${filepath}
