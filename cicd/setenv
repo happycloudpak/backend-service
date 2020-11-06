@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # get parameters
 filepath=$1

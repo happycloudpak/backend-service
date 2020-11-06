@@ -20,8 +20,8 @@ password=$3
 basedir=$4
 
 # set variables from config.properties: converted from '.' to '_'
-${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-common.properties
-${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-${profile}.properties
+eval $(${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-common.properties)
+eval $(${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-${profile}.properties)
 
 # build image
 echo "image: ${image_registry}/${image_project}/${image_repository}:${image_tag}"
