@@ -4,7 +4,6 @@ echo "************* DEPLOY service *****************"
 
 # get parameters
 echo "STEP1: Get Parameter"
-echo ""
 
 if ([ $# -lt 2 ]) || ([ $# -eq 1 ] && [ "$1" == "-h" -o "$1" == "--help" ]); then
   echo "deploy <k8s-context> <root directory> <profile>"
@@ -27,25 +26,25 @@ fi
 if [ "${context}" == "." ]; then
 	context=`kubectl config current-context`
 fi
+echo ""
  
 # set variables from config.properties: converted from '.' to '_'
 echo "STEP2. Set environment variables "
-echo ""
 
 eval $(${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-common.properties)
 if [ "${profile}" != "" ]; then
 	eval $(${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-${profile}.properties)
 fi
+echo ""
 
 # switch kubenetes context
 echo "STEP3. Switch to kubernetes context "
-echo ""
 
 kubectl config use-context ${context}
+echo ""
 
 # check current version
 echo "STEP4. Delete application if same version exists "
-echo ""
 
 CURTAG=$(kubectl get deploy ${image_repository} -o yaml | grep "image: ${image_registry}/${image_project}/${image_repository}:" | cut -d ':' -f3)
 echo "FIND CURRENT VERSION: ${CURTAG}"
@@ -56,10 +55,10 @@ if [ $? -eq 0 ] && [ "${CURTAG}" == "${image_tag}" ]; then
 
     kubectl delete deploy --selector="app=${image_repository}"
 fi
+echo ""
 
 # configmap revise
 echo "STEP5. Create ConfigMap "
-echo ""
 
 cm="${image_repository}-cm-common"
 kubectl get configmap ${cm} 2> /dev/null
@@ -81,10 +80,10 @@ if [ $? -eq 1 ]; then
   echo "FAIL to create configmap ${cm}!"
   exit 2
 fi
+echo ""
 
 # secret revise
 echo "STEP6. Create Secret "
-echo ""
 
 secret="${image_repository}-secret"
 kubectl get secret ${secret} 2> /dev/null
@@ -96,10 +95,10 @@ if [ $? -eq 1 ]; then
   echo "FAIL to create secret ${secret}!"
   exit 2
 fi
+echo ""
 
 # deploy.yaml을 이용하여 배포 yaml생성
 echo "STEP7. Deploy application "
-echo ""
 
 IMG="${image_registry}\/${image_project}\/${image_repository}:${image_tag}"
 sed "s@{{ SERVICE_NAME }}@${image_repository}@g" ${basedir}/cicd/deploy.yaml | \
