@@ -3,7 +3,7 @@
 echo "************* DEPLOY service *****************"
 
 # get parameters
-echo "STEP1: Get Parameter"
+echo "STEP1: Get Parameters"
 
 if ([ $# -lt 2 ]) || ([ $# -eq 1 ] && [ "$1" == "-h" -o "$1" == "--help" ]); then
   echo "deploy <k8s-context> <root directory> <profile>"
