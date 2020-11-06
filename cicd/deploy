@@ -3,19 +3,18 @@
 echo "************* DEPLOY service *****************"
 
 # get parameters
-if ([ $# -lt 3 ]) || ([ $# -eq 1 ] && [ "$1" == "-h" -o "$1" == "--help" ]); then
-  echo "deploy <profile> <k8s-context> <root directory>"
-  echo " profile: 대상서버 프로파일명:ex)dev,prod"
+if ([ $# -lt 2 ]) || ([ $# -eq 1 ] && [ "$1" == "-h" -o "$1" == "--help" ]); then
+  echo "deploy <k8s-context> <root directory>"
   echo " k8s-context: 사용할 k8s context명. kubectl config view로 context 목록 확인. '.'은 현재 컨텍스트 의미함 "
   echo " root directory: project의 최상위 디렉토리. '.'은 현재 디렉토리 의미함. "
-  echo " ex) ./deploy prod kubernetes-admin@kubernetes ~/work"
-  echo " ex) ./deploy prod . ."
+  echo " ex) ./deploy kubernetes-admin@kubernetes ~/work"
+  echo " ex) ./deploy . ."
   exit 2
 fi
 
-profile=$1
-context=$2
-basedir=$3
+profile=`cat ${basedir}/src/main/resources/application.yml | grep "active: " | cut -d ":" -f2 | tr -d " "`
+context=$1
+basedir=$2
 
 if [ "${context}" == "." ]; then
 	context=`kubectl config current-context`
