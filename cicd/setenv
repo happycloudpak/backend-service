@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# get parameters
+filepath=$1
+
+# set variables from config.properties
+while read line
+do
+  x=$(echo $line | grep "#")
+  if [ $? -eq 1 ]; then
+    y=$(echo $line | grep "=")
+    if [ $? -eq 0 ]; then
+        export ${line}   
+    fi
+  fi 
+done < ${filepath}

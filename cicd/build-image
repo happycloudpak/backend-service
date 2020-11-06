@@ -8,16 +8,8 @@ password=$2
 basedir=$3
 
 # set variables from config.properties
-while read line
-do
-  x=$(echo $line | grep "#")
-  if [ $? -eq 1 ]; then
-    y=$(echo $line | grep "=")
-    if [ $? -eq 0 ]; then
-        export ${line}   
-    fi
-  fi 
-done < ${basedir}/cicd/config.properties
+${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-common.properties
+${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-${profile}.properties
 
 # build image
 echo "image: ${image_registry}/${image_project}/${image_repository}:${image_tag}"
