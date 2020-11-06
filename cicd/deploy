@@ -52,7 +52,7 @@ fi
 # configmap revise
 echo "STEP5. Create ConfigMap "
 cm="${image_repository}-cm-common"
-chk=`kubectl get configmap ${cm}`
+kubectl get configmap ${cm} 2> /dev/null
 if [ $? -eq 0 ]; then
   kubectl delete configmap ${cm}
 fi
@@ -62,7 +62,7 @@ if [ $? -eq 1 ]; then
   exit 2
 fi
 cm="${image_repository}-cm-${profile}"
-chk=`kubectl get configmap ${cm}`
+kubectl get configmap ${cm} 2> /dev/null
 if [ $? -eq 0 ]; then
   kubectl delete configmap ${cm}
 fi
@@ -75,7 +75,7 @@ fi
 # secret revise
 echo "STEP6. Create Secret "
 secret="${image_repository}-secret"
-chk=`kubectl get secret ${secret}`
+kubectl get secret ${secret} 2> /dev/null
 if [ $? -eq 0 ]; then
   kubectl delete secret ${secret}
 fi
