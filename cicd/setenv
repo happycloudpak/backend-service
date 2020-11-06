@@ -11,7 +11,7 @@ do
   if [ $? -eq 1 ]; then
     y=$(echo $line | grep "=")
     if [ $? -eq 0 ]; then
-        key=$(echo $line | cut -d "=" -f1 | tr -d " " | sed "@\.@_@g")
+        key=$(echo $line | cut -d "=" -f1 | tr -d " " | sed "s@\.@_@g")
         val=$(echo $line | cut -d "=" -f2)
         export ${key}=${val}   
     fi
