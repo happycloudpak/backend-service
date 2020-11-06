@@ -4,17 +4,22 @@ echo "************* DEPLOY service *****************"
 
 # get parameters
 if ([ $# -lt 2 ]) || ([ $# -eq 1 ] && [ "$1" == "-h" -o "$1" == "--help" ]); then
-  echo "deploy <k8s-context> <root directory>"
+  echo "deploy <k8s-context> <root directory> <profile>"
   echo " k8s-context: 사용할 k8s context명. kubectl config view로 context 목록 확인. '.'은 현재 컨텍스트 의미함 "
   echo " root directory: project의 최상위 디렉토리. '.'은 현재 디렉토리 의미함. "
+  echo " profile: 배포대상 환경 프로파일(ex:dev, prod). 생략 시 application.yml의 spring.profiles.active값 참조 "
   echo " ex) ./deploy kubernetes-admin@kubernetes ~/work"
   echo " ex) ./deploy . ."
   exit 2
 fi
 
-profile=`cat ${basedir}/src/main/resources/application.yml | grep "active: " | cut -d ":" -f2 | tr -d " "`
 context=$1
 basedir=$2
+if [ $@ -eq 3 ]; then
+	profile=$3
+else
+	profile=`cat ${basedir}/src/main/resources/application.yml | grep "active: " | cut -d ":" -f2 | tr -d " "`
+fi
 
 if [ "${context}" == "." ]; then
 	context=`kubectl config current-context`
@@ -22,7 +27,9 @@ fi
  
 # set variables from config.properties: converted from '.' to '_'
 eval $(${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-common.properties)
-eval $(${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-${profile}.properties)
+if [ "${profile}" != "" ]; then
+	eval $(${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-${profile}.properties)
+fi
 
 # switch kubenetes context
 kubectl config use-context ${context}

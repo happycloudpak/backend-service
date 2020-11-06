@@ -13,14 +13,12 @@ if ([ $# -lt 3 ]) || ([ $# -eq 1 ] && [ "$1" == "-h" -o "$1" == "--help" ]); the
   exit 2
 fi
 
-profile=`cat ${basedir}/src/main/resources/application.yml | grep "active: " | cut -d ":" -f2 | tr -d " "`
 username=$1
 password=$2
 basedir=$3
 
 # set variables from config.properties: converted from '.' to '_'
 eval $(${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-common.properties)
-eval $(${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-${profile}.properties)
 
 # build image
 echo "image: ${image_registry}/${image_project}/${image_repository}:${image_tag}"
