@@ -14,7 +14,7 @@ do
         key=$(echo $line | cut -d "=" -f1 | tr -d " " | sed "s@\.@_@g")
         val=$(echo $line | cut -d "=" -f2)
         echo "${key}=${val}"
-        export ${key}=${val}   
+        #export ${key}=${val}
     fi
   fi 
 done < ${filepath}
