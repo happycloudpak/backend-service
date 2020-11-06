@@ -13,7 +13,7 @@ do
     if [ $? -eq 0 ]; then
         key=$(echo $line | cut -d "=" -f1 | tr -d " " | sed "s@\.@_@g")
         val=$(echo $line | cut -d "=" -f2)
-        #echo "${key}=${val}"
+        echo "${key}=${val}"
         export ${key}=${val}   
     fi
   fi 
