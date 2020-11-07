@@ -32,9 +32,9 @@ function clearCMSecret() {
 kubectl delete -f ${yaml} 2> /dev/null
 
 # get app name
-apps=`cat ${yaml} | grep app: | cut -d ":" -f2 | tr -d " "`
-lists=$(apps)
-app=${lists[0]}
+tmp=`cat ${yaml} | grep app: | cut -d ":" -f2 | tr -d " "`
+apps=(${tmp})
+app=${apps[0]}
 
 # delete configmap
 resource_kind=configmap
