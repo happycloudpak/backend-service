@@ -2,5 +2,6 @@ spring:
   application: 
     name: backend-service
   profiles: 
-    active: ${profile:local}
+    #active: ${profile:local}
+    active: dev
     include: common
