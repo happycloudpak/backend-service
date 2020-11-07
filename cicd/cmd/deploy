@@ -64,7 +64,7 @@ if [ "${context}" == "." ]; then
 fi
 
 deploy_kind="Deployment"
-lists=`cat ./deploy.yaml | grep "kind: " | cut -d ":" -f2 | tr -d " "`
+lists=`cat ${basedir}/cicd/deploy.yaml | grep "kind: " | cut -d ":" -f2 | tr -d " "`
 for kind in ${lists}
 do
 	if [ "${kind}" == "Deployment" ] || [ "${kind}" == "StatefulSet" ]; then
