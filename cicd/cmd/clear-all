@@ -19,19 +19,22 @@ resource_kind=""
 resource_postfix=""
 
 function clearCMSecret() {
-	nm=`cat ${yaml} | grep ${resource_postfix} | cut -d ":" -f2 | tr -d " " | tr -d \"`
-	if [ "${nm}" != "" ]; then 
-		echo "${resource_kind}=>${nm}"
-		kubectl get ${resource_kind} ${nm}
-		if [ $? -eq 0 ]; then
-	  		kubectl delete ${resource_kind} ${nm}
-		fi	
+	nm=${app}-${resource_postfix}
+	echo "try to delete=>${nm}"
+	kubectl get ${resource_kind} ${nm} 2> /dev/null
+	if [ $? -eq 0 ]; then
+  		kubectl delete ${resource_kind} ${nm}
 	fi
 }
 
 
 # delete using deploy yaml
 kubectl delete -f ${yaml} 2> /dev/null
+
+# get app name
+tmp=`cat ${yaml} | grep app: | cut -d ":" -f2 | tr -d " " | tr -d \"`
+lists=$(tmp)
+app=${lists[0]}
 
 # delete configmap
 resource_kind=configmap
