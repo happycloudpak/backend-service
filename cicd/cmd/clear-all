@@ -23,7 +23,7 @@ function clearCMSecret() {
 	nm=`cat ${yaml} | grep ${resource_postfix} | cut -d ":" -f2 | tr -d " "`
 	if [ "${nm}" != "" ]; then 
 		echo "${resource_kind}=>${nm}"
-		kubectl get ${resource_kind} ${nm} 2> /dev/null
+		kubectl get ${resource_kind} ${nm}
 		if [ $? -eq 0 ]; then
 	  		kubectl delete ${resource_kind} ${nm}
 		fi	
