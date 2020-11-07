@@ -31,25 +31,25 @@ kubectl delete -f ${yaml}
 if [ $? -eq 1 ]; then exit 2; fi
 
 # delete configmap
-resource_kind="configmap"
-resource_postfix="cm-common"
+resource_kind=configmap
+resource_postfix=cm-common
 clearCMSecret
 
-resource_postfix="cm-dev"
+resource_postfix=cm-dev
 clearCMSecret
 
-resource_postfix="cm-prod"
+resource_postfix=cm-prod
 clearCMSecret
 
 # delete secret
-resource_kind="secret"
-resource_postfix="secret-common"
+resource_kind=secret
+resource_postfix=secret-common
 clearCMSecret
 
-resource_postfix="secret-dev"
+resource_postfix=secret-dev
 clearCMSecret
 
-resource_postfix="secret-prod"
+resource_postfix=secret-prod
 clearCMSecret
 
 echo ""
