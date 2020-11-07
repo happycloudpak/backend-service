@@ -6,4 +6,4 @@ eureka:
     register-with-eureka: true 
     fetch-registry: true
     service-url:
-      defaultZone: ${eureka.servers}
+      defaultZone: ${eureka_servers}
