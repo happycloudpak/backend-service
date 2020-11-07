@@ -24,11 +24,13 @@ spec:
           value: "{{ SERVICE_TARGET_PORT }}" 
         envFrom:
         - configMapRef:
-            name: "{{ SERVICE_NAME }}-cm-common"
+            name: "{{ SERVICE_NAME }}-cm-common"        
         - configMapRef:
-            name: "{{ SERVICE_NAME }}-cm-{{ PROFILE }}"            
+            name: "{{ SERVICE_NAME }}-cm-{{ PROFILE }}" 
         - secretRef:
-            name: "{{ SERVICE_NAME }}-secret"
+            name: "{{ SERVICE_NAME }}-secret-common"           
+        - secretRef:
+            name: "{{ SERVICE_NAME }}-secret-{{ PROFILE }}"
         ports:
         - name: port1
           containerPort: 18180

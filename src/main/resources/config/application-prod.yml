@@ -1,6 +1,2 @@
-eureka:
-  client: 
-    register-with-eureka: true 
-    fetch-registry: true 
-    service-url:
-      defaultZone: ${eureka.servers}
+config:
+  port: 18001

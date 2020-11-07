@@ -21,13 +21,13 @@ echo ""
 
 # set variables from config.properties: converted from '.' to '_'
 echo "STEP2. Set environment variables "
-eval $(${basedir}/cicd/setenv ${basedir}/src/main/resources/config/application-common.properties)
+eval $(${basedir}/cicd/cmd/set-env ${basedir}/cicd/config/config-common.properties)
 echo ""
 
 # build image
 echo "STEP3. Build image "
 echo "image: ${image_registry}/${image_project}/${image_repository}:${image_tag}"
-docker build -f ${basedir}/cicd/Dockerfile -t ${image_registry}/${image_project}/${image_repository}:${image_tag} ${basedir}
+docker build --build-arg ARTIFACTORY_FILE=${image_repository} -f ${basedir}/cicd/Dockerfile -t ${image_registry}/${image_project}/${image_repository}:${image_tag} ${basedir}
 echo ""
 
 # login image registry to push image: parameters are provided from bamboo pipeline.
@@ -44,3 +44,6 @@ docker tag ${image_registry}/${image_project}/${image_repository}:${image_tag} $
 # push them
 docker push ${image_registry}/${image_project}/${image_repository}:${image_tag}
 docker push ${image_registry}/${image_project}/${image_repository}:latest
+
+exit 0
+
