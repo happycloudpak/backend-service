@@ -1,6 +1,7 @@
 #!/bin/bash
 
-echo "************* CLEAR All resources *****************"
+echo "************** CLEAR All resources **********$*******"
+echo ""
 
 # get parameters
 if ([ $# -lt 1 ]) || ([ $# -eq 1 ] && [ "$1" == "-h" -o "$1" == "--help" ]); then
@@ -21,14 +22,13 @@ function clearCMSecret() {
 	nm=`cat ${yaml} | grep {resource_postfix} | cut -d ":" -f2 | tr -d " "`
 	kubectl get ${resource_kind} ${nm} 2> /dev/null
 	if [ $? -eq 0 ]; then
-  		kubectl delete ${resource_kind} ${nm}
+  		kubectl delete ${resource_kind} ${nm} 2> /dev/null
 	fi
 }
 
 
 # delete using deploy yaml
-kubectl delete -f ${yaml}
-if [ $? -eq 1 ]; then exit 2; fi
+kubectl delete -f ${yaml} 2> /dev/null
 
 # delete configmap
 resource_kind=configmap
@@ -53,4 +53,6 @@ resource_postfix=secret-prod
 clearCMSecret
 
 echo ""
+echo "************* All resources CLEARED *****************"
+
 exit 0
