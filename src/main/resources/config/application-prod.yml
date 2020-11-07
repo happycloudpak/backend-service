@@ -1,4 +1,4 @@
-config:
+server:
   port: 18001
 
 eureka:
