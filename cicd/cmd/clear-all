@@ -19,7 +19,10 @@ resource_kind=""
 resource_postfix=""
 
 function clearCMSecret() {
+	echo "cat ${yaml} | grep {resource_postfix} | cut -d \":\" -f2 | tr -d \" \""
 	nm=`cat ${yaml} | grep {resource_postfix} | cut -d ":" -f2 | tr -d " "`
+	echo "=>${nm}"
+	
 	kubectl get ${resource_kind} ${nm} 2> /dev/null
 	if [ $? -eq 0 ]; then
   		kubectl delete ${resource_kind} ${nm} 2> /dev/null
