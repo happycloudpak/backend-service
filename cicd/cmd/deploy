@@ -54,7 +54,7 @@ if [ $# -eq 3 ]; then
 else
 	profile=`cat ${basedir}/src/main/resources/application.yml | grep "active: " | cut -d ":" -f2 | tr -d " "`
 fi
-if [ "${profile}" -eq "" ]; then
+if [ "${profile}" == "" ]; then
   echo "CAN'T Get deployment profile"
   exit 2
 fi
