@@ -3,5 +3,4 @@ spring:
     name: backend-service
   profiles: 
     active: local
-    #active: dev
     include: common
